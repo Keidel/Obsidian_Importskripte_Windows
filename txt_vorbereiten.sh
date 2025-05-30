@@ -2,15 +2,15 @@
 
 #rm txt_dateien/*.txt
 # Definiere eine Trennlinie für bessere Lesbarkeit der Ausgaben
-linie=$(echo -e " \n--------------------------------------------\n")
+#linie=$(echo -e " \n--------------------------------------------\n")
 
-# Erstelle das Ausgabeverzeichnis, falls es nicht existiert
-mkdir -p "Markdown_Dateien"
+source Universalvariable.sh
 
 # Funktion zum Umbenennen von Dateien mit Erstellungsdatum
 rename_with_date() {
     local file="$1"
     local date_format="%d_%m_%Y"
+    
     
     # Versuche zuerst das Erstellungsdatum zu bekommen, sonst das Änderungsdatum
     if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -30,14 +30,19 @@ rename_with_date() {
     
     # Benenne die Datei um
     mv "$file" "${dir}/${new_filename}"
-    echo "Renamed: $filename -> $new_filename"
+    #echo "Dateiname bereinigt: $filename -> $new_filename"
 }
-
+#----------------------------------------------------------------------------------
 # Verarbeite alle .txt Dateien im aktuellen Verzeichnis und Unterverzeichnissen
-find . -type f -name "*.txt" | while read -r file; do
+tput clear
+
+find $QUELLE_TXT -type f -name "*.txt" | while read -r file
+do
     rename_with_date "$file"
+    #echo -e  "$file"
 done
-echo -e "$linie Dateien wurden umbenanntt $linie"
+echo -e "$linie\ntxt-Dateien wurden umbenannt \n$linie"
+
 
 # Funktion zur Konvertierung von Dateinamen (Umlaute, Leerzeichen etc.)
 convert_filename () {
@@ -50,14 +55,14 @@ convert_filename () {
 }
 
 # Verarbeite jede .txt Datei
-for txt_file in txt_dateien/*.txt; do
+for txt_file in $QUELLE_TXT/*.txt; do
     if [ -f "$txt_file" ]; then
         # Extrahiere Basis-Dateinamen ohne Erweiterung
         base_name=$(basename "$txt_file"| awk -F. '{print $1}' | sed 's/__/_/g')
         # Konvertiere den Dateinamen
         new_name=$(convert_filename "$base_name")
         # Erstelle Ausgabedateipfad
-        output_file="Markdown_Dateien/${new_name}.md"
+        output_file="$MD_VERZ/${new_name}.md"
         
         # Verarbeite den Dateiinhalt
         {
@@ -81,8 +86,10 @@ for txt_file in txt_dateien/*.txt; do
             done
         } < "$txt_file" > "$output_file"
         
-        echo "konvertiert  $txt_file -> $output_file"
+       # echo "konvertiert  $txt_file -> $output_file"
     fi
 done
 
-echo -e "$linie Konversion beendet, Dateien im markdown Ordner verschoben $linie"
+echo -e "$linie\ntxt-Dateien in Verzeichnis Markdown_Dateien verschoben\n$linie"
+
+./eigenschaften_ergaenzen.sh

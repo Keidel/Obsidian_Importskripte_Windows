@@ -1,9 +1,9 @@
 #!/bin/bash
-linie=$(echo -e " \n--------------------------------------------\n")
 
-MARKDOWN_DIR="./Markdown_Dateien"
+source Universalvariable.sh 
+
 # Verarbeite jede Markdown-Datei
-for file in "$MARKDOWN_DIR"/*.md; do
+for file in "$MD_VERZ"/*.md; do
     if [ -f "$file" ]; then
         # Extrahiere Dateinamen ohne Pfad und Erweiterung für den Titel
         filename=$(basename "$file" | awk -F. '{print $1}')
@@ -27,8 +27,8 @@ for file in "$MARKDOWN_DIR"/*.md; do
         # Ersetze die Originaldatei mit dem neuen Inhalt
         mv "$temp_file" "$file"
         
-        echo "Eigenschaften ergänzt für  $file"
+        #echo "Eigenschaften ergänzt für  $file"
     fi
 done
 
-echo -e  "$linie Eigenschaften wurden ergänzt. $linie"
+echo -e  "$linie\nEigenschaften wurden ergänzt \n$linie"

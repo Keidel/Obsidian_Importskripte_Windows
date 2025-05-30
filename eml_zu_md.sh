@@ -1,26 +1,22 @@
 #!/bin/bash
 
 # Dieses Skript konvertiert .eml-Dateien in Markdown-Dateien
-
-
-# Verzeichnisse für Ein- und Ausgabe
-SOURCE_DIR="/home/petra/Zubehoer_Obsidian/eml_dateien"
-TARGET_DIR="/home/petra/Zubehoer_Obsidian/Markdown_Dateien"
+source Universalvariable.sh
 
 # Temporäres Verzeichnis für die Extraktion der E-Mail-Inhalte
 # $$ fügt die Prozess-ID hinzu, um Konflikte zu vermeiden
 TMP_DIR="/tmp/ripmime_extract_$$"
 
 # Prüfen, ob das Quellverzeichnis existiert
-if [ ! -d "$SOURCE_DIR" ]; then
-    echo "Error: Quellverzeichnis $SOURCE_DIR existiert nicht"
+if [ ! -d "$QUELLE_EML" ]; then
+    echo "Error: Quellverzeichnis $QUELLE_EML existiert nicht"
     exit 1
 fi
 
 # Prüfen, ob das Zielverzeichnis existiert, sonst erstellen
-if [ ! -d "$TARGET_DIR" ]; then
-    echo "Erstelle Zielverzeichnis $TARGET_DIR"
-    mkdir -p "$TARGET_DIR"
+if [ ! -d "$MD_VERZ" ]; then
+    echo "Erstelle Zielverzeichnis $MD_VERZ"
+    mkdir -p "$MD_VERZ"
 fi
 
 # Prüfen, ob ripmime installiert ist
@@ -37,7 +33,7 @@ mkdir -p "$TMP_DIR"
 counter=1
 
 # Durchlaufe alle .eml-Dateien im Verzeichnis
-for eml_file in "$SOURCE_DIR"/*.eml; do
+for eml_file in "$QUELLE_EML"/*.eml; do
     if [ -f "$eml_file" ]; then
         # Extrahiere Metadaten (Absender und Datum)
         from=$(grep -i "^From:" "$eml_file" | sed 's/^From: //')
@@ -52,7 +48,7 @@ for eml_file in "$SOURCE_DIR"/*.eml; do
         fi
         
         # Erstelle den Namen für die neue Markdown-Datei mit Nummer, Datum und Mail-Suffix
-        md_file="$TARGET_DIR/${filedate}_Mail_${counter}.md"
+        md_file="$MD_VERZ/${filedate}_Mail_${counter}.md"
         
         # Extrahiere den Betreff und ersetze Leerzeichen durch Unterstriche
         subject=$(grep -i "^Subject:" "$eml_file" | sed 's/^Subject: //' | tr ' ' '_')
@@ -99,5 +95,5 @@ for eml_file in "$SOURCE_DIR"/*.eml; do
 done
 
 # Aufräumen: Lösche das temporäre Verzeichnis
-echo "Konvertierung abgeschlossen! $((counter-1)) Dateien wurden konvertiert."
+echo "Konvertierung abgeschlossen, $((counter-1)) Dateien wurden konvertiert."
 rm -rf "$TMP_DIR" 
