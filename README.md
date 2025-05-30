@@ -28,10 +28,11 @@ Bereitet Textdateien für die Konvertierung in Markdown vor. Das Skript:
 - Erstellt eine vorbereitete Version für die weitere Verarbeitung
 
 ### md_zerlegen.sh
-Teilt große Markdown-Dateien in kleinere, besser handhabbare Dateien auf. Das Skript:
-- Analysiert große Markdown-Dateien
-- Teilt sie nach bestimmten Kriterien in kleinere Dateien auf
-- Behält dabei die Struktur und Formatierung bei
+Teilt große Markdown-Dateien in einzelne Wörter auf. Das Skript:
+- Analysiert Markdown-Dateien
+- Teilt sie nach bestimmten Kriterien in Wörter auf
+- Erstellt Datei `woerter_auswahl.txt` zur Weiterverwendung
+- schliesst Wörter aus 
 
 ### eigenschaften_ergaenzen.sh
 Ergänzt Markdown-Dateien um zusätzliche Eigenschaften und Metadaten. Das Skript:
@@ -44,15 +45,15 @@ Fügt Hashtags zu bestimmten Wörtern in Markdown-Dateien hinzu. Das Skript:
 - Liest eine Liste von Wörtern aus der Datei `woerter_auswahl.txt`
 - Sucht diese Wörter in allen Markdown-Dateien
 - Fügt ein # vor jedem gefundenen Wort ein
-- Berücksichtigt dabei nur vollständige Wörter
+- Berücksichtigt dabei nur vollständige, großgeshriebene Wörter
 
 ## Verwendung
 
 1. Stellen Sie sicher, dass die Verzeichnisstruktur korrekt eingerichtet ist
 2. Führen Sie die Skripte in der folgenden Reihenfolge aus:
    - `eml_zu_md.sh` oder `txt_vorbereiten.sh` (je nach Quelldateityp)
+   -  `eigenschaften_ergaenzen.sh`
    - `md_zerlegen.sh` (falls erforderlich)
-   - `eigenschaften_ergaenzen.sh`
    - `add_hashtags.sh`
 
 ## Hinweise
