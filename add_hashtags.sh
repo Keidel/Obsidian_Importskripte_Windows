@@ -1,27 +1,21 @@
 #!/bin/bash
 
-# Setze den Zielordner
-TARGET_DIR="/home/petra/Zubehoer_Obsidian/Markdown_Dateien"
-
-# Überprüfe, ob der Ordner existiert
-if [ ! -d "$TARGET_DIR" ]; then
-    echo "Fehler: Ordner $TARGET_DIR existiert nicht!"
-    exit 1
-fi
-
+source Universalvariable.sh
 # Verarbeite alle .md Dateien im Ordner
-find "$TARGET_DIR" -type f -name "*.md" -print0 | while IFS= read -r -d '' file; do
+find "$MD_VERZ" -type f -name "*.md" -print0 | while IFS= read -r -d '' file; do
     # Erstelle temporäre Datei
     temp_file=$(mktemp)
     
-    # Verarbeite die Datei:
-    # 1. Finde Wörter, die mit einem Großbuchstaben beginnen
-    # 2. Füge eine Raute davor ein
-    # 3. Ignoriere bereits mit Raute markierte Wörter
-    sed -E 's/([^#])\b([A-ZÄÖÜ][a-zäöüß]*)\b/\1#\2/g' "$file" > "$temp_file"
-    
-    # Ersetze die Originaldatei mit der bearbeiteten Version
-    mv "$temp_file" "$file"
+    # Lese die Wörter aus der Auswahldatei
+    while IFS= read -r wort; do
+        # Entferne Leerzeichen am Anfang und Ende
+        wort=$(echo "$wort" | xargs)
+        # Überspringe leere Zeilen
+        [ -z "$wort" ] && continue
+        
+        # Füge Hashtag vor dem Wort ein, wenn es noch nicht mit # beginnt
+        sed -i "s/\b$wort\b/#$wort/g" "$file"
+    done < "$ARB/1.txt"
     
     echo "Verarbeitet: $file"
 done

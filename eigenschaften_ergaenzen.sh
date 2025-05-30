@@ -33,4 +33,4 @@ done
 
 echo -e  "$linie\nEigenschaften wurden ergänzt \n$linie"
 
-./zerlegen_md.sh
+./md_zerlegen.sh
