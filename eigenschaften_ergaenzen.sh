@@ -32,3 +32,5 @@ for file in "$MD_VERZ"/*.md; do
 done
 
 echo -e  "$linie\nEigenschaften wurden ergänzt \n$linie"
+
+./zerlegen_md.sh

@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#rm txt_dateien/*.txt
-# Definiere eine Trennlinie für bessere Lesbarkeit der Ausgaben
-#linie=$(echo -e " \n--------------------------------------------\n")
 
 source Universalvariable.sh
 
