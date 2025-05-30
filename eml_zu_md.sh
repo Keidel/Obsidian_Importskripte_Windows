@@ -4,8 +4,8 @@
 
 
 # Verzeichnisse für Ein- und Ausgabe
-SOURCE_DIR="/home/petra/Bash_Uebungen/Materialien_Obsidian/eml_dateien"
-TARGET_DIR="/home/petra/Bash_Uebungen/Materialien_Obsidian/Markdown_Dateien"
+SOURCE_DIR="/home/petra/Zubehoer_Obsidian/eml_dateien"
+TARGET_DIR="/home/petra/Zubehoer_Obsidian/Markdown_Dateien"
 
 # Temporäres Verzeichnis für die Extraktion der E-Mail-Inhalte
 # $$ fügt die Prozess-ID hinzu, um Konflikte zu vermeiden

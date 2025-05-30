@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setze den Zielordner
-TARGET_DIR="/home/petra/Bash_Uebungen/Materialien_Obsidian/Markdown_Dateien"
+TARGET_DIR="/home/petra/Zubehoer_Obsidian/Markdown_Dateien"
 
 # Überprüfe, ob der Ordner existiert
 if [ ! -d "$TARGET_DIR" ]; then
