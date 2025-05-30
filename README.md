@@ -1,7 +1,5 @@
 # Obsidian_Importskripte_Windows
 
-# Dokumentation der Obsidian Import-Skripte
-
 Diese Dokumentation beschreibt die verschiedenen Skripte, die für die Verarbeitung und den Import von Dateien in Obsidian verwendet werden.
 
 ## Verzeichnisstruktur
